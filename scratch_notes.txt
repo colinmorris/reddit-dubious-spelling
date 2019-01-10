@@ -1,0 +1,225 @@
+# Examples found in the wild (specifically highlighting variations)
+----------------------
+
+Aww the two Milwawkee (sp?) queens.
+    by far most common fmt
+brings some semblance of joy/commradary (sp?!)
+It's a type cichlid(sp?) that's known
+gave me dilodid(sp?), which
+creator who was dropped (Kamiya(sp?)) and wanted
+Check out Gerry Gaffney and Caroline Jarett (sp?). They
+or two of servicibility (sp?/is that a word?)
+ in 'knocked up' where johna(jona sp?) Sits
+I think you could look up Pore Of Winer (sp?), they’re
+    example of attachment to multi-word phrase
+portions from Pearson or Mcgraw-hill (SP?) And
+    two in day
+ use the inerja (Sp?) to scoop up the food
+    3 of these
+how John Larroquette (sp) was able
+    17
+(SP): 0 instances
+a cubic zirconia (spelling?) Placed in
+    ~15
+Nokian hakapaletas (spelling) are the best 
+    6
+Jon Doe (spelling? lol) is an
+acquire the "Queen Sheeba" (sp?) sword,
+him hob-knobbing (sp?) with
+Cavaleiro's (sp?) antics.
+
+fpos:
+ http://www.aq.com/character.asp?id=destiny
+So what do chain attack have to do with sp?
+What dont you grasp?
+
+# RE scratch notes
+----------------------
+
+Re...
+
+word, optional space, open paren, case-insensitive "sp", then...
+- elling, ? or )
+- ) (then space, punct, or $ ?)
+- ?
+
+Probably favour precision over recall. The simple (sp?) pattern will already have a pretty good recall.
+
+Of course, need to capture word that precedes, to which the sp applies.
+
+(?:^| )([0-9A-Za-z\047-]+) ?\([sS][pP](?:elling)?\??\)
+^[^&].* ([0-9A-Za-z\047-]+) ?\([sS][pP](?:elling)?\??\)
+(?m:^[^&].* ([0-9A-Za-z\047-]+) ?\([sS][pP](?:elling)?\??\))
+Explanation:
+- Space preceding word
+- alphanumeric-punctual word
+- optional space
+- open paren
+- sp (case insensitive)
+- optional "elling"
+- optional ?
+- close paren
+
+Could try to be clever and capture multi-word expressions preceding the sp? if they're enclosed in quotation marks, or if they're all capitalized.
+
+Could also allow some markdown frippery.
+
+Maybe exclude "(SP)" because it's more likely to be a country indicator?
+
+More liberal(?) re to comm with
+
+\([sS][pP](\?|elling|\))
+
+Explanation:
+- open paren
+- sp (case insensitive)
+- ? or "elling" or close paren
+
+SELECT REGEXP_EXTRACT(body, r"(?:^| )([0-9A-Za-z\047-]+) ?\([sS][pP](?:elling)?\??\)")
+
+
+> Whenever I see people type '(sp?)' after a word, I always think of Jinkx as Little Edie.
+
+Same, sis.
+
+# False positives:
+----------------------
+It
+    I use it (SP) and i have it set so that if a guard is at 50%
+     nor disimplied it(sp?)
+     give you Campral or something like it (sp?) for cravings,
+The (sense/reference)
+    I imagine the (SP?) Is a part of the name by now.
+    I love how he put the (sp) in there
+    Thanks! And yes, that's why I put the (sp?) because I wanted to be corrected if needed!
+Advance
+     Gameboy Advance (sp)
+Orthography
+    (spelling). Lol.
+ruin
+    virtue's ruin (sp) (<-- mtg card, some user kept spamming it as for sale/trade)
+Top (same story as above - mtg guy)
+GBA
+it
+    Cases where the sp is not deployed immediately after word in question. e.g. 
+     it had that 1,3,5 dimethylamylamine in it (spelling?) that
+and
+     get the (ex), (su) and (sp) abilities
+is
+    what is (sp)
+does / with / basically a lot of short stopwords
+
+# Abbreviations
+----------------------
+person
+    suppressive person
+Paralysis
+    Sleep paralysis (SP)
+Paulo
+    Sao Paulo (SP)
+Points / Point
+    skill points (SP)
+    You use 1 out of your 3 source points(SP) 
+    loss of skill points (SP) 
+Police
+    superintendent of police (SP)
+Party (279)
+    the Samajwadi Party (SP)
+    joining the Socialist Party (SP).
+    Social Democrat Party (SP)
+pressure
+    Static Pressure
+power
+price
+Abilities
+    Spell-Like Abilities (Sp)
+
+# Multiple attachments
+----------------------
+Acid (quite varied)
+    Hydrocloric acid (sp?)
+    Postan -mefamic acid (sp)
+    tannic acid (sp?)
+Syndrome
+Park
+disease (similar to acid - prefixed)
+Do
+    Tai Kwan Do (#1), Jeet Kun Do, eun jang do, al bhed could do (sp?), Dippity Do
+Effect
+    Westermarck, Dunning-Kruger, 
+Bay
+Island
+## Last names
+Grey/Gray
+Khan
+Tyson (Neil Degrasse)
+Lee
+
+# Multiword attachment (unambiguous)
+-----------------------
+Faire (laissez faire)
+
+
+
+TODO: remember to delete tables in bigquery
+
+NS:
+
+0. think about what kinds of viz/analysis would be useful...
+    - simple bar chart of most sp?'d terms (ideally including variant spellings)
+    - some viz of popularity of different mispelled forms of words (could be esp. cool as some kind of sankey diagram)
+    - which terms are people under-confident about (they usually use the correct spelling with sp) vs. ones that are most often mispelled when accompanied by sp
+    - Maybe pick out top ten sp'd terms (or just select by some subjective criteria of interestingness) and try to come up with one viz that shows their frequency relative to each other, as well as the relative frequencies of different forms within a word. Could be a stacked bar chart, for instance. Or do a treemap per word - I like that.
+- If you wanna be really proper, could do some hacking to properly split out half-suitcases like 'disease', 'acid', and last names.
+x1. Case normalization
+2. Clustering
+    Input: set of word forms
+    Output: list of sets of word clusters?
+    Orrr....
+    Input: dict mapping word forms to counts
+    Output: dict mapping 'canonical' word form (one with highest count) to set of related word forms?
+2.5: bigrams? acid, syndrome, park (too varied to crack top 10), disease (also prob too varied),
+    Are any of them focused enough to make top 10? Acid = 72, park = 68, syndrome=61, effect=38. These are basically upper bounds on any bigram that includes them as the 2nd word... Whereas top 15 all have 90+ across forms.
+
+If you're doing the thing where you focus just on visualizing the alternative forms, maybe should actually requery the data in a way that's not limited to forms followed by (sp?). cf. pushshift's reddit_one_word_frequencies.csv.xv
+OTOH, limiting to instances with (sp?) might give more variety / a higher mispelling rate.
+
+Another interesting q: which words are most frequently sp'd relative to how often they're used? i.e. what % of the time that someone tried to type 'Gyllenhaal' do they add sp?
+
+Ooh another one: has the rate of (sp?) usage changed over time? Hypothesis: it's decreased over time as browsers with builtin spellcheck have increased in popularity? (Also mobile usage with smart keyboards). Would have to control for other factors - focus on a specific subreddit?
+
+
+# New top 30 (counts across all word forms)
+
+adderall 185
+johansen 158
+gyllenhal 151
+reddiquette 150
+kaepernick 146
+shamalan 121
+mcconaughey 121
+comradery 112
+sarkeesian 109
+sriracha 101
+
+galifinakis 98
+fentanyl 96
+asbergers 91
+seizure 84
+dilaudid 74
+soleil 73
+lee 71
+palahniuk 70
+minaj 69
+deschanel 69
+
+loogie 66
+faire 58
+kardashian 58
+welbutrin 57
+heimlich 54
+tyson 51
+pescatarian 51
+silmarillion 50
+alzheimers 42
+mache 36
